@@ -1,0 +1,73 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "F:\\ITI 9 MONTH\\myApiProjects\\payment\\PaymentProject\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{BD168B70-CD0B-41EC-A2B3-2A7D40F30C33}|PaymentProject.csproj|f:\\iti 9 month\\myapiprojects\\payment\\paymentproject\\controllers\\paymentdetailcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BD168B70-CD0B-41EC-A2B3-2A7D40F30C33}|PaymentProject.csproj|solutionrelative:controllers\\paymentdetailcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BD168B70-CD0B-41EC-A2B3-2A7D40F30C33}|PaymentProject.csproj|f:\\iti 9 month\\myapiprojects\\payment\\paymentproject\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BD168B70-CD0B-41EC-A2B3-2A7D40F30C33}|PaymentProject.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BD168B70-CD0B-41EC-A2B3-2A7D40F30C33}|PaymentProject.csproj|f:\\iti 9 month\\myapiprojects\\payment\\paymentproject\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{BD168B70-CD0B-41EC-A2B3-2A7D40F30C33}|PaymentProject.csproj|solutionrelative:properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "F:\\ITI 9 MONTH\\myApiProjects\\payment\\PaymentProject\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "Properties\\launchSettings.json",
+              "ToolTip": "F:\\ITI 9 MONTH\\myApiProjects\\payment\\PaymentProject\\Properties\\launchSettings.json",
+              "RelativeToolTip": "Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-05-01T19:07:44.41Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "F:\\ITI 9 MONTH\\myApiProjects\\payment\\PaymentProject\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "F:\\ITI 9 MONTH\\myApiProjects\\payment\\PaymentProject\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAcwCAAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-01T19:02:05.787Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PaymentDetailController.cs",
+              "DocumentMoniker": "F:\\ITI 9 MONTH\\myApiProjects\\payment\\PaymentProject\\Controllers\\PaymentDetailController.cs",
+              "RelativeDocumentMoniker": "Controllers\\PaymentDetailController.cs",
+              "ToolTip": "F:\\ITI 9 MONTH\\myApiProjects\\payment\\PaymentProject\\Controllers\\PaymentDetailController.cs",
+              "RelativeToolTip": "Controllers\\PaymentDetailController.cs",
+              "ViewState": "AgIAAEYAAAAAAAAAAAAUwFMAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-01T18:58:40.558Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
