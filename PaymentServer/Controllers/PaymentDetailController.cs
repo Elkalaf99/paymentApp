@@ -1,110 +1,183 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using PaymentProject.Data;
+using Microsoft.Extensions.Logging;
 using PaymentProject.Models;
+using PaymentProject.Models.DTOs;
+using PaymentProject.Services;
 
 namespace PaymentProject.Controllers
 {
+    /// <summary>
+    /// Controller for managing payment details
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class PaymentDetailController : ControllerBase
     {
-        private readonly PaymentDbContext _context;
+        private readonly IPaymentDetailService _paymentDetailService;
+        private readonly ILogger<PaymentDetailController> _logger;
 
-        public PaymentDetailController(PaymentDbContext context)
+        public PaymentDetailController(
+            IPaymentDetailService paymentDetailService,
+            ILogger<PaymentDetailController> logger)
         {
-            _context = context;
+            _paymentDetailService = paymentDetailService;
+            _logger = logger;
         }
 
-        // GET: api/PaymentDetail
+        /// <summary>
+        /// Gets all payment details
+        /// </summary>
+        /// <returns>A list of payment details</returns>
+        /// <response code="200">Returns the list of payment details</response>
+        /// <response code="500">If there was an internal server error</response>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<IEnumerable<PaymentDetail>>> GetPaymentDetails()
         {
-            return await _context.PaymentDetails.ToListAsync();
-        }
-
-        // GET: api/PaymentDetail/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<PaymentDetail>> GetPaymentDetail(int id)
-        {
-            var paymentDetail = await _context.PaymentDetails.FindAsync(id);
-
-            if (paymentDetail == null)
-            {
-                return NotFound();
-            }
-
-            return paymentDetail;
-        }
-
-        // PUT: api/PaymentDetail/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutPaymentDetail(int id, PaymentDetail paymentDetail)
-        {
-            if (id != paymentDetail.PaymentDetailsID)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(paymentDetail).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                var paymentDetails = await _paymentDetailService.GetAllPaymentDetailsAsync();
+                return Ok(paymentDetails);
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception ex)
             {
-                if (!PaymentDetailExists(id))
+                _logger.LogError(ex, "Error occurred while getting payment details");
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while retrieving payment details");
+            }
+        }
+
+        /// <summary>
+        /// Gets a specific payment detail by ID
+        /// </summary>
+        /// <param name="id">The ID of the payment detail</param>
+        /// <returns>The payment detail</returns>
+        /// <response code="200">Returns the payment detail</response>
+        /// <response code="404">If the payment detail is not found</response>
+        /// <response code="500">If there was an internal server error</response>
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<PaymentDetail>> GetPaymentDetail(int id)
+        {
+            try
+            {
+                var paymentDetail = await _paymentDetailService.GetPaymentDetailByIdAsync(id);
+                if (paymentDetail == null)
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
+                return Ok(paymentDetail);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error occurred while getting payment detail with ID: {id}");
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while retrieving the payment detail");
+            }
+        }
+
+        /// <summary>
+        /// Updates a payment detail
+        /// </summary>
+        /// <param name="id">The ID of the payment detail to update</param>
+        /// <param name="paymentDetailDto">The updated payment detail data</param>
+        /// <returns>The updated payment detail</returns>
+        /// <response code="200">Returns the updated payment detail</response>
+        /// <response code="400">If the payment detail data is invalid</response>
+        /// <response code="404">If the payment detail is not found</response>
+        /// <response code="500">If there was an internal server error</response>
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> PutPaymentDetail(int id, PaymentDetailDTO paymentDetailDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
             }
 
-            return Ok(await _context.PaymentDetails.ToListAsync());
+            try
+            {
+                var updatedPaymentDetail = await _paymentDetailService.UpdatePaymentDetailAsync(id, paymentDetailDto);
+                if (updatedPaymentDetail == null)
+                {
+                    return NotFound();
+                }
+                return Ok(updatedPaymentDetail);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error occurred while updating payment detail with ID: {id}");
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while updating the payment detail");
+            }
         }
 
-        // POST: api/PaymentDetail
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /// <summary>
+        /// Creates a new payment detail
+        /// </summary>
+        /// <param name="paymentDetailDto">The payment detail data</param>
+        /// <returns>The created payment detail</returns>
+        /// <response code="201">Returns the newly created payment detail</response>
+        /// <response code="400">If the payment detail data is invalid</response>
+        /// <response code="500">If there was an internal server error</response>
         [HttpPost]
-        public async Task<ActionResult<PaymentDetail>> PostPaymentDetail(PaymentDetail paymentDetail)
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<PaymentDetail>> PostPaymentDetail(PaymentDetailDTO paymentDetailDto)
         {
-            // Validate the payment detail
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-            _context.PaymentDetails.Add(paymentDetail);
-            await _context.SaveChangesAsync();
-
-            return Ok(await _context.PaymentDetails.ToListAsync());
+            try
+            {
+                var createdPaymentDetail = await _paymentDetailService.CreatePaymentDetailAsync(paymentDetailDto);
+                return CreatedAtAction(nameof(GetPaymentDetail), new { id = createdPaymentDetail.PaymentDetailsID }, createdPaymentDetail);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while creating payment detail");
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while creating the payment detail");
+            }
         }
 
-        // DELETE: api/PaymentDetail/5
+        /// <summary>
+        /// Deletes a payment detail
+        /// </summary>
+        /// <param name="id">The ID of the payment detail to delete</param>
+        /// <returns>No content if successful</returns>
+        /// <response code="204">If the payment detail was successfully deleted</response>
+        /// <response code="404">If the payment detail is not found</response>
+        /// <response code="500">If there was an internal server error</response>
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> DeletePaymentDetail(int id)
         {
-            var paymentDetail = await _context.PaymentDetails.FindAsync(id);
-            if (paymentDetail == null)
+            try
             {
-                return NotFound();
+                var result = await _paymentDetailService.DeletePaymentDetailAsync(id);
+                if (!result)
+                {
+                    return NotFound();
+                }
+                return NoContent();
             }
-
-            _context.PaymentDetails.Remove(paymentDetail);
-            await _context.SaveChangesAsync();
-
-            return Ok(await _context.PaymentDetails.ToListAsync());
-        }
-
-        private bool PaymentDetailExists(int id)
-        {
-            return _context.PaymentDetails.Any(e => e.PaymentDetailsID == id);
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error occurred while deleting payment detail with ID: {id}");
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while deleting the payment detail");
+            }
         }
     }
 }

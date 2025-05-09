@@ -7,13 +7,21 @@ namespace PaymentProject.Models
     {
         [Key]
         public int PaymentDetailsID { get; set; }
+
+        [Required]
         [Column(TypeName = "nvarchar(100)")]
-        public string CardOwnerName { get; set; }
+        public string CardOwnerName { get; set; } = string.Empty;
+
+        [Required]
         [Column(TypeName = "nvarchar(16)")]
-        public string CardNumber { get; set; }
+        public string CardNumber { get; set; } = string.Empty;
+
+        [Required]
         [Column(TypeName = "nvarchar(5)")]
-        public string ExpirationDate { get; set; }
+        public string ExpirationDate { get; set; } = string.Empty;
+
+        [Required]
         [Column(TypeName = "nvarchar(3)")]
-        public string CVC { get; set; }
+        public string CVC { get; set; } = string.Empty;
     }
 }

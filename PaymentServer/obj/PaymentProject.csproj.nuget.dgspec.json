@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "F:\\ITI 9 MONTH\\myApiProjects\\payment\\PaymentProject\\PaymentProject.csproj": {}
+    "F:\\ITI 9 MONTH\\myApiProjects\\payment\\paymentserver\\PaymentProject.csproj": {}
   },
   "projects": {
-    "F:\\ITI 9 MONTH\\myApiProjects\\payment\\PaymentProject\\PaymentProject.csproj": {
+    "F:\\ITI 9 MONTH\\myApiProjects\\payment\\paymentserver\\PaymentProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\ITI 9 MONTH\\myApiProjects\\payment\\PaymentProject\\PaymentProject.csproj",
+        "projectUniqueName": "F:\\ITI 9 MONTH\\myApiProjects\\payment\\paymentserver\\PaymentProject.csproj",
         "projectName": "PaymentProject",
-        "projectPath": "F:\\ITI 9 MONTH\\myApiProjects\\payment\\PaymentProject\\PaymentProject.csproj",
+        "projectPath": "F:\\ITI 9 MONTH\\myApiProjects\\payment\\paymentserver\\PaymentProject.csproj",
         "packagesPath": "C:\\Users\\mahmo\\.nuget\\packages\\",
-        "outputPath": "F:\\ITI 9 MONTH\\myApiProjects\\payment\\PaymentProject\\obj\\",
+        "outputPath": "F:\\ITI 9 MONTH\\myApiProjects\\payment\\paymentserver\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -67,6 +67,10 @@
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[9.0.0, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[8.1.1, )"
             },
             "Swashbuckle.AspNetCore.SwaggerUI": {
               "target": "Package",
